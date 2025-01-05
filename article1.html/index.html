@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="screenStyle.css" media="screen">
+    <link rel="stylesheet" href="printStyle.css" media="print">
+    <title>Rod Draka</title>
+</head>
+<body>
+    <nav class="topnav" id="topnav" >
+        <a class="active" href="#welcome">Vitajte</a>
+        <a href="#articles/1/60">Články</a>
+        <a href="#opinions">Názory</a>
+        <a href="#addOpinion">Pridať Názor</a>
+        <a href="#about">Niečo o mne</a>
+    </nav>
+    <br><br><br>
+
+
+
+
+<main id="router-view">
+</main>
+
+
+    <script id="template-welcome" type="text/template" >
+        <main>
+            <article >
+                <br><br><br>
+                <svg width="420" height="420" class="center_svg">
+                    <a href="https://gameofthrones.fandom.com/wiki/Faith_of_the_Seven">
+                        <polygon points="210,10 125,390 368,85 13,258 407,258 53,88 295,390"
+                                 style="fill:black;stroke:white;stroke-width:5;fill-rule: nonzero;" />
+                        <circle cx="210" cy="210" r="200"
+                                stroke="white" stroke-width="7" fill="none" />
+                    </a>
+                </svg>
+
+                <div class="intro" style="font-size:5vh;">
+                    Vitajte vo svete, kde Vám ponad hlavu lietajú draky, mocné rody medzi sebou súperia a na Vaše životy dohliada Boh zo Siemimi tvárami. Vitajte vo Westerose!
+                </div>
+
+                <h1>Rod Draka</h1>
+
+                <div class="intro1" style="font-size:4vh;">
+                    Jedná sa o prequel k televíznemu seriálu Game of Thrones (Hra o tróny) a vychádza z
+                    románu George R.R Martina - Oheň a krv z roku 2018. Seriál sa odohráva 200 rokov pred udalosťami
+                    seriálu Game of Thrones a popisuje začiatok konca rodu Targarienov, udalosti vedúce k občianskej
+                    vojne, známej ako "Tanec drakov", a vojnu samotnú.
+                </div>
+                <div class="audio">
+                    <audio autoplay>
+                        <source src="fig/game-of-thrones-theme-song-ringtone-30782.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </article>
+            <footer>
+                <p>
+                    napísala Terézia Drengubiaková
+                </p>
+                <p>
+                    <a href="mailto:terezia.drengubiakova@student.tuke.sk" class="colour">napísať mail</a>
+                </p>
+                <p>
+                    font Game of Thrones: <a href="https://www.onlinewebfonts.com" class="colour">oNline Web Fonts</a>
+                </p>
+            </footer>
+        </main>
+    </script>
+
+    <!-- 10 -->
+    <!--
+    <script id="template-articles" type="text/template">
+        {{#articles}}
+        <article class="center">
+            <h4>{{title}} by {{author}}</h4>
+        </article>
+        {{/articles}}
+
+    </script>
+    -->
+    <!-- 20 * 65 + x -->
+
+    <script id="template-articles" type="text/template" style="background: black">
+        <h1>Artikly</h1>
+        <br><br><br>
+        <div  class="center">
+            <br><br>
+            <div>
+                {{#Articles.articles}}
+                {{#.}}
+                <h4 style="color: navajowhite" class="parralaxBackground">{{title}} by <i>{{articles}}{{author}}</i></h4>
+                <br>
+                {{/.}}
+                {{/Articles.articles}}
+            </div>
+            <nav>
+                {{#prevPage}}
+                <a href="#articles/{{prevPage}}/{{pageCount}}" class="previous round">&#8249</a>
+                {{/prevPage}}
+                {{#nextPage}}
+                <a href="#articles/{{nextPage}}/{{pageCount}}" class="next round">&#8250</a>
+                {{/nextPage}}
+            </nav>
+        </div>
+        <p style="color: antiquewhite">strana {{curPage}} z {{pageCount}}</p>
+    </script>
+
+
+    <script src="js/mustache.min.js"></script>
+    <script type="module" src="js/index.js"></script>
+
+
+
+
+
+
+<script id="template-articles-error" type="text/template">
+    <article style="color: bisque">
+        <h4>Načítanie záznamov zlyhalo</h4>
+        <p>
+            {{errorMessage}}
+        </p>
+    </article>
+</script>
+
+<script id="template-opinions" type="text/template">
+    <article>
+        <h3>Reakcie</h3>
+        <br><br><br>
+        {{#.}}
+        <section>
+            <h3>{{name}} <i>{{createDate}}</i></h3>
+            <p><i>{{email}}</i></p>
+            <img src="{{url}}" alt="comment_pic" class="center_img">
+            <p>{{comment}}</p>
+            <p>{{like}}</p>
+            <p>{{content1}}</p>
+            <p>{{keyWord}}</p>
+        </section>
+        {{/.}}
+        {{^.}}
+        <section>
+            <p>Nie sú dostupné žiadne reakcie.</p>
+        </section>
+        {{/.}}
+    </article>
+</script>
+
+<script id="template-addOpinion" type="text/template">
+    <article>
+        <h3>pre autora:</h3>
+        <p>
+            Ak by ste mi chceli zanechať nejaký odkaz, použite prosím formulár nižšie.
+        </p>
+        <p style="font-size: 2vh" >povinné polia sú vyznačené červenou</p>
+        <form id="review" method="get" target="form_response">
+            <label for="name">Vaše meno:</label>
+            <input type="text" name="meno" id="name" size="25" maxlength="50"
+                   placeholder="Vaše meno prosím" required
+                   lang="sk"
+                   pattern="^[a-zA-Z-' ]*$"
+                   title="Vaše meno poprosím zadať bez diakritiky">
+            <br><br>
+            <label for="email">Váš email:</label>
+            <input type="email" name="email" id="email" size="25"
+                   title="email musí zodpovedať formátu: xxxxxxx@xxxx.xx"
+                   maxlength="100" placeholder="Váš email prosím" required
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <br><br>
+            <label for="url">url:</label>
+            <input type="url" name="url" id="url" size="25"
+                   maxlength="500"
+                   pattern="https?://.+" >
+            <br><br><br>
+            <p>
+                Páči sa Vám moja stránka?
+            </p>
+            <label for="like">Páči sa mi</label>
+            <input type="radio" name="like" id="like" value="Stránka sa mi páči">
+            <br>
+            <label for="dislike">Nepáči sa mi</label>
+            <input type="radio" name="like" id="dislike" value="Stránka sa mi nepáči">
+            <br><br>
+            <label for="review_text"></label>
+            <textarea id="review_text" name="review_text" rows="5" cols="60"
+                      placeholder="Tu mi môžete zanechať spätnú väzbu" required></textarea>
+            <br><br>
+            <input type="checkbox" name="content1" id="content1">
+            <label for="content1">Chcel/-a by som viac na danú tému</label>
+            <br><br><br>
+            <label for="key_word">Aké kľúčové slovo vystihuje moju stránku?</label>
+            <input list="key_words" name="key_word" id="key_word" required>
+            <datalist id="key_words">
+                <option value="perfektná - dozvedel/-a som sa všetko, čo som chcel/-a"></option>
+                <option value="dobrá - našiel/-la som tu zaujímavé informácie"></option>
+                <option value="dá sa - sú tu pokope informácie ohľadom seriálu, ale nič svetoborné"></option>
+                <option value="schopná- no už sa sem nevrátim"></option>
+                <option value="celé zle - nebol/-a som spokojný/-á"></option>
+            </datalist>
+            <br><br>
+            <button type="submit" id="submit">Poslať</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="deleteOpinions()">Vymazať reakcie</button>
+            <br><br><br><br><br>
+        </form>
+    </article>
+</script>
+<script>
+    function deleteOpinions() {
+        localStorage.clear();
+        window.alert("Záznamy boli odstránené");
+    }
+</script>
+
+    <script id="template-about" type="text/template">
+        <h3 style="color: coral">Trochu o mne</h3>
+        <br>
+        <!--    <img src="fig/terka.jpg" alt="terka"> -->
+        <p>Pochádzam z nádherného kraja - Zo srdca Liptova. Mojimi záľubami sú lukostreľba, výtvarné umenia, seriály, či
+            online hry. Tí čo ma nepoznajú by ma zaradili medzi introvertov, ale keby si naše vzťahy kúsok oťukali,
+            prišli by k záveru, že som stvorenie plné prekvapení a kuriozít. Mám rada zimu, ale neznášam chlad. Mám rada leto,
+            ale nemusím letné horúčavy. Milujem búrky, no nemám rada, keď zmoknem... Mohli by sm pokračovať veľmi dlho.
+            Najčastejšie ma však spoznáte podľa úsmevu, ktorý sa vynorí vždy, keď s niekým hovorím.
+            <br>
+            Ako veľký fanúšik Game of Thrones som si nemohla nechať ujsť príležitosť vypracovať stránku na tému nového prequel-u,
+            serálu Rod Draka, ktorý sa mi veľmi zaľúbil. Preto dúfam, že obsah mojej stránky Vás aspoň trochu namotivuje, aby ste si ho pozreli,
+            alebo mu pri najmenšom aspoň dali šancu. Či už áno alebo nie je na Vás, avšak bola by som rada za každú jednu pripomienku, ak
+            sa nejaká vyskytne :) Pretože spätná väzba vie veľmi pomôcť :)
+        </p>
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+@font-face {
+    font-family: "Game of Thrones";
+    src: url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.eot");
+    src: url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.svg#Game of Thrones") format("svg");
+}
+
+h1 {
+    color: cornsilk;
+    text-align: center;
+    font-family: "Game of Thrones", serif;
+    font-size:7vh;
+}
+h3 {
+    font-family: "Game of Thrones", serif;
+    text-align: center;
+    font-size:5vh;
+    color: cornsilk;
+}
+
+h4 {
+    text-align: center;
+    font-size: 20px;
+    color: cornsilk;
+}
+
+h5 {
+    text-align: center;
+    font-size:5vh;
+    color: cornsilk;
+}
+
+p {
+    font-family: serif;
+    text-align: center;
+    color: #737373;
+    font-size:3vh;
+    transition: background-color 3s;
+}
+
+p:hover {
+    background-color: black;
+}
+/*fig/fire_background.gif*/
+
+body {
+    background-image: url("fig/fire on bottom.webp");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.center_svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img[src=""] {
+    display: none;
+}
+
+.center_img {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+/*    position: relative;
+    animation: move 7s infinite;
+    animation-direction: alternate; */
+}
+
+.previous {
+    background-color: grey;
+    color: black;
+}
+.next {
+    background-color: darkgray;
+    color: black;
+}
+.round {
+    border-radius: 50%;
+    size: 500px;
+}
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+table th, td {
+    border: 1px solid;
+    text-align: center;
+    font-size: 20px;
+    color: cornsilk;
+    transition: background-color 3s;
+}
+
+table:hover{
+    background-color: black;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+    color: cornsilk;
+    transition: background-color 3s;
+}
+
+ul {
+    list-style-image: url('fig/srdecko.png');
+    color: cornsilk;
+    transition: background-color 3s;
+}
+ul:hover {
+    background-color: black;
+}
+
+ol {
+    color: cornsilk;
+    transition: background-color 3s;
+}
+ol:hover {
+    background-color: black;
+}
+
+.intro {
+        font-family: serif;
+        text-align: center;
+        color: navajowhite;
+        font-size: 25px;
+}
+
+.intro1 {
+    font-family: serif;
+    text-align: center;
+    color: navajowhite;
+    font-size: 25px;
+}
+
+.colour {
+    color: navajowhite;
+    font-size: 25px;
+}
+
+.topnav {
+    background-color: #333;
+    width: 100%;
+    overflow:hidden;
+    position: fixed;
+}
+
+.topnav a {
+    float: right;
+    color:#737373;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size:3vw;
+    transition: color 3s;
+}
+
+.topnav a:hover {
+    background-color: #3e4444;
+    text-decoration: underline;
+    color: #FF7C30;
+}
+
+.topnav a.active {
+    background-color: #FF7C30;
+    color: black;
+}
+.topnav .icon {
+    display: none;
+    position: sticky;
+}
+/*
+@keyframes move {
+    from {left: -100px;}
+    to {left: 100px;}
+}
+*/
+main > article > p{
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.lists {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 40px;
+    padding: 10px;
+}
+
+.lists > div {
+    text-align: justify-all;
+    padding: 50px 0;
+}
+
+.grid_pics {
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+    padding: 20px
+}
+
+
+@media screen and (min-width: 600px) {
+    body {
+        min-width: 35rem;
+        max-width: 100rem;
+        margin-left: auto;
+        margin-right: auto;
+
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto auto auto auto;
+    }
+    body > nav {
+        position: sticky;
+        grid-column-start: 1;
+        grid-row-start: 1;
+        grid-column-end: 4;
+    }
+    body > header {
+        grid-column-start: 2;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+    body > picture {
+        grid-column-start: 2;
+        grid-row: 2;
+        grid-row-end: 2;
+    }
+ /*   .pic1 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .pic2 {
+        grid-column: 3;
+        grid-row: 1;
+    }
+*/
+    body > main {
+        grid-column-start: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+    body > footer {
+        grid-column-start: 2;
+        grid-row-start: 5;
+    }
+}
+
+@media screen and (max-width: 599px){
+    body {
+        min-width: 15rem;
+        width: 95%;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+
+    }
+    body > footer {
+        order: 1;
+    }
+}
+
+label {
+    vertical-align: top;
+    display: inline-block;
+    min-width: 30%;
+    color: navajowhite;
+    transition: background-color 2s;
+}
+label:hover {
+    background-color: black;
+}
+
+textarea {
+    resize: none;
+}
+label ::after{
+    content: ":";
+}
+:required {
+    border: 3px solid darkred;
+}
+
+:optional {
+    border: 1px solid grey;
+}
+
+input:invalid, textarea:invalid {
+    border-color: darkred;
+}
+
+:out-of-range {
+    color: darkred;
+}
+
+input:valid {
+    color: forestgreen;
+}
+/*
+.center {
+    border-radius: 1rem;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-image: url("fig/fireeee.jpg");
+    background-attachment: fixed;
+    background-position: center;
+}
+*/
+.center h4{
+    width: 100%;
+    transition: width 2s;
+    background: black;
+    background-size: auto 30px;
+    text-justify: auto;
+}
+
+.center h4:hover {
+    width: 125%;
+
+}
+
+.center nav{
+    /*background-color: #F557F2;*/
+    text-align: center;
+    padding: 0.8em;
+}
+
+
