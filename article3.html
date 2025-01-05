@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="screenStyle.css" media="screen">
+  <link rel="stylesheet" href="printStyle.css" media="print">
+  <title>Rod Draka - Reakcie</title>
+</head>
+<body>
+
+<nav class="topnav" id="topnav" >
+  <a class="active" href="index.html" style="font-size:3.5vw;">Úvod</a>
+  <a href="article1.html" style="font-size:3vw;">Postavy</a>
+  <a href="article2.html" style="font-size:3vw;">Dej</a>
+  <a href="article4.html">Draky</a>
+  <a href="article3.html" style="font-size:3vw;">Reakcie</a>
+</nav>
+
+
+<header>
+  <h1>Reakcia</h1>
+</header>
+<main>
+  <article>
+    <h3>pre autora:</h3>
+    <p>
+      Ak by ste mi chceli zanechať nejaký odkaz, použite prosím formulár nižšie.
+    </p>
+    <p style="font-size: 2vh" >povinné polia sú vyznačené červenou</p>
+    <form id="review" method="get" target="form_response">
+      <label for="name">Vaše meno:</label>
+      <input type="text" name="meno" id="name" size="25" maxlength="50"
+             placeholder="Vaše meno prosím" required
+             lang="sk"
+             pattern="^[a-zA-Z-' ]*$"
+             title="Vaše meno poprosím zadať bez diakritiky">
+      <br><br>
+      <label for="email">Váš email:</label>
+      <input type="email" name="email" id="email" size="25"
+             title="email musí zodpovedať formátu: xxxxxxx@xxxx.xx"
+             maxlength="100" placeholder="Váš email prosím" required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <br><br>
+      <label for="url">url:</label>
+      <input type="url" name="url" id="url" size="25"
+             maxlength="500"
+             pattern="https?://.+" >
+      <br><br><br>
+      <p>
+        Páči sa Vám moja stránka?
+      </p>
+      <label for="like">Páči sa mi</label>
+      <input type="radio" name="like" id="like" value="like">
+      <br>
+      <label for="dislike">Nepáči sa mi</label>
+      <input type="radio" name="like" id="dislike" value="dislike">
+      <br><br>
+      <label for="review_text"></label>
+      <textarea id="review_text" name="review_text" rows="5" cols="60"
+                placeholder="Tu mi môžete zanechať spätnú väzbu" required></textarea>
+      <br><br>
+      <input type="checkbox" name="content" id="content">
+      <label for="content">Chcel/-a by som viac na danú tému</label>
+      <br><br><br>
+      <label for="key_word">Aké kľúčové slovo vystihuje moju stránku?</label>
+      <input list="key_words" name="key_word" id="key_word" required>
+      <datalist id="key_words">
+        <option value="perfektná - dozvedel/-a som sa všetko, čo som chcel/-a"></option>
+        <option value="dobrá - našiel/-la som tu zaujímavé informácie"></option>
+        <option value="dá sa - sú tu pokope informácie ohľadom seriálu, ale nič svetoborné"></option>
+        <option value="schopná- no už sa sem nevrátim"></option>
+        <option value="celé zle - nebol/-a som spokojný/-á"></option>
+      </datalist>
+      <br><br>
+      <button type="submit" id="submit">Poslať</button>
+      <button type="reset">Reset</button>
+      <button type="button" onclick="deleteOpinions()">Vymazať reakcie</button>
+    </form>
+  </article>
+
+  <article id="opinions">
+    <h3 style="font-size:5vh;">Reakcie</h3>
+    <div id="opinionsContainer"></div>
+  </article>
+</main>
+
+<script type="module" src="js/article3HtmlWr.js"></script>
+<script id="oneOpinion" type="text/template">
+  <section>
+    <h4>{{name}} <i>{{createdDate}}</i></h4>
+    <img src="{{url}}" alt="comment_pic" class="center_img">
+    <p>{{comment}}</p>
+    <p>{{like}}</p>
+    <p>{{content}}</p>
+    <p>{{keyWord}}</p>
+  </section>
+</script>
+ <script>
+  function deleteOpinions() {
+    localStorage.clear();
+    location.reload();
+  }
+</script>
+
+</body>
+</html>

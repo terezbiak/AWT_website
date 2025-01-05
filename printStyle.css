@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "Game of Thrones";
+    src: url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.eot");
+    src: url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/97c4b25dc74e0ab045154e75a8fdd69d.svg#Game of Thrones") format("svg");
+}
+
+h1 {
+    text-align: center;
+    font-family: "Game of Thrones", serif;
+    font-size: larger;
+    color: black;
+}
+
+h3 {
+    font-family: "Game of Thrones", serif;
+    text-align: -moz-left;
+    color: black;
+}
+
+h4 {
+    text-align: -webkit-left;
+    font-family: serif;
+    color: black;
+}
+
+h5 {
+    text-align: left;
+    color: black;
+    font-family: serif;
+}
+
+p {
+    font-family: serif;
+    color: black;
+}
+
+body {
+    background-color: white;
+}
+
+body > nav {
+    display: none;
+}
+
+.center_svg {
+    display: none;
+
+}
+
+.center_img {
+    display: none;
+
+}
+table th, td {
+    border: 1px solid;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+}
+
+ul {
+    list-style-image: url('fig/srdecko.png');
+    color: black;
+}
+
+ol {
+    color: black;
+}
