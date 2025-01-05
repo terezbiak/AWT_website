@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="google-signin-client_id" content="1029678842004-cgp7r7hb11lbl8qm0t5cg7576944sea5.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="screenStyle.css" media="screen">
+    <link rel="stylesheet" href="printStyle.css" media="print">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Rod Draka</title>
+</head>
+<body>
+
+<div class="hamburgerContainer">
+    <nav class="smallNav" id="smallNav">
+        <a class="active" href="#welcome">Vitajte</a>
+        <div id="hamburger">
+            <a href="#articles/1/50" onclick="myFunction3()">Články</a><hr>
+            <a href="#artInsert" onclick="myFunction3()">Pridať Článok</a><hr>
+            <a href="#opinions" onclick="myFunction3()">Názory</a><hr>
+            <a href="#addOpinion" onclick="myFunction3()">Pridať Názor</a><hr>
+            <a href="#about" onclick="myFunction3()">Niečo o mne</a>
+        </div>
+        <a class="icon" onclick="myFunction2()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+</div>
+
+
+<nav class="topnav" id="topnav" >
+    <a class="active" href="#welcome">Vitajte</a>
+    <a href="#articles/1/50">Články</a>
+    <a href="#artInsert">Pridať Článok</a>
+    <a href="#opinions">Názory</a>
+    <a href="#addOpinion">Pridať Názor</a>
+    <a href="#about">Niečo o mne</a>
+</nav>
+<br><br><br>
+
+<aside id="googleSignIn" class="google">
+    <br><br>
+    <div id="SignInButton"></div>
+    <div id="SignedIn">
+        <button id="userName1"></button>
+        <button id="hide" onclick="signOut()">Odhlásiť sa</button>
+    </div>
+</aside>
+
+
+
+
+<main id="router-view">
+</main>
+
+<script id="template-welcome" type="text/template" >
+    <main>
+        <article >
+            <br><br><br><br><br>
+            <svg width="420" height="420" class="center_svg">
+                <a href="https://gameofthrones.fandom.com/wiki/Faith_of_the_Seven">
+                    <polygon points="210,10 125,390 368,85 13,258 407,258 53,88 295,390"
+                             style="fill:black;stroke:white;stroke-width:5;fill-rule: nonzero;" />
+                    <circle cx="210" cy="210" r="200"
+                            stroke="white" stroke-width="7" fill="none" />
+                </a>
+            </svg>
+           <h1>Vitajte! <span  id="userName"></span></h1>
+            <div class="intro" style="font-size:5vh;">
+                Vitajte vo svete, kde Vám ponad hlavu lietajú draky, mocné rody medzi sebou súperia a na Vaše životy dohliada Boh zo Siemimi tvárami. Vitajte vo Westerose!
+            </div>
+
+            <h1>Rod Draka</h1>
+
+            <div class="intro1" style="font-size:4vh;">
+                Jedná sa o prequel k televíznemu seriálu Game of Thrones (Hra o tróny) a vychádza z
+                románu George R.R Martina - Oheň a krv z roku 2018. Seriál sa odohráva 200 rokov pred udalosťami
+                seriálu Game of Thrones a popisuje začiatok konca rodu Targarienov, udalosti vedúce k občianskej
+                vojne, známej ako "Tanec drakov", a vojnu samotnú.
+            </div>
+         <!--   <div class="audio">
+                <audio autoplay>
+                    <source src="fig/dracarys_daemon.mp3" type="audio/mpeg">
+                </audio>
+            </div>-->
+        </article>
+        <footer>
+            <p>
+                napísala Terézia Drengubiaková
+            </p>
+            <p>
+                <a href="mailto:terezia.drengubiakova@student.tuke.sk" class="colour">napísať mail</a>
+            </p>
+            <p>
+                font Game of Thrones: <a href="https://www.onlinewebfonts.com" class="colour">oNline Web Fonts</a>
+            </p>
+        </footer>
+    </main>
+</script>
+
+<script id="template-articles" type="text/template" style="background: black">
+    <br><br><br><br>
+    <h1>Artikly</h1>
+    <br><br><br>
+
+    <input type="text" id="search" onkeyup="searchFunction()"
+           placeholder="Hľadaj článok..." title="napíš kľúčové slovo">
+
+    <div  class="center">
+        <br>
+        <ul id="articles">
+            {{#Articles.articles}}
+            {{#.}}
+                <li><a href="{{detailLink}}">{{title}}</a>
+                <h4>by <i>{{author}}</i></h4>
+                <br>
+                <p class="articlesContent">{{{content}}}</p>
+                <br><br>
+                </li>
+            {{/.}}
+            {{/Articles.articles}}
+        </ul>
+        <nav>
+            {{#prevPage}}
+            <a href="#articles/{{prevPage}}/{{pageCount}}" class="previous round">&#8249</a>
+            {{/prevPage}}
+            {{#nextPage}}
+            <a href="#articles/{{nextPage}}/{{pageCount}}" class="next round">&#8250</a>
+            {{/nextPage}}
+        </nav>
+    </div>
+    <p style="color: antiquewhite">strana {{currPage}} z {{pageCount}}</p>
+</script>
+
+<script>
+
+
+    function searchFunction() {
+  //      const urlBase = "https://wt.kpi.fei.tuke.sk/api";
+
+        let input, filter, ul;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("articles");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            }
+            else {
+                li[i].style.display = "none";
+            }
+        }
+/*
+
+
+        let url1 = `${urlBase}/article`
+        let articles = [];
+        let data4rendering={
+            Articles:articles,
+        };
+        let count;
+        let pole = [];
+        let i, j;
+        function req1Listener(){
+            if(this.status == 200) {
+                data4rendering = JSON.parse(this.responseText);
+                count =data4rendering.meta.totalCount;
+                data4rendering.meta.max = count;
+                console.log(data4rendering, "data4rendering");
+                console.log(count, "count");
+                url1 = `${urlBase}/article?max=${count}`;
+                console.log(url1);
+                for (i = 0; i < count; i++) {
+                    pole[i] = data4rendering.articles[i].title;
+                }
+            }
+            else{
+                window.alert("neni OK response")
+            }
+        }
+        var ajax1 = new XMLHttpRequest();
+        ajax1.addEventListener("load", req1Listener);
+        ajax1.open("GET", url1, true);
+        ajax1.send();
+
+*/
+
+
+    }
+</script>
+
+<script src="js/mustache.min.js"></script>
+<script type="module" src="js/index.js"></script>
+<script src="js/articleFormsHandler.js"></script>
+<script src="js/google1.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=startGSingIn" async defer></script>
+
+<script id="template-articles-error" type="text/template">
+    <article style="color: bisque">
+        <h4>Načítanie záznamov zlyhalo</h4>
+        <p>
+            {{errorMessage}}
+        </p>
+    </article>
+</script>
+
+<script id="template-opinions" type="text/template">
+    <article>
+        <br><br><br><br>
+        <h3>Reakcie</h3>
+        <br><br><br>
+        {{#.}}
+        <section>
+            <h3>{{namer}} <i>{{createDate}}</i></h3>
+            <p><i>{{email}}</i></p>
+            <img src="{{url}}" alt="comment_pic" class="center_img">
+            <p>{{comment}}</p>
+            <p>{{like}}</p>
+            <p>{{contentik}}</p>
+            <p>{{keyWord}}</p>
+        </section>
+        {{/.}}
+        {{^.}}
+        <section>
+            <p>Nie sú dostupné žiadne reakcie.</p>
+        </section>
+        {{/.}}
+    </article>
+</script>
+
+<script id="template-addOpinion" type="text/template">
+    <article>
+        <br><br><br><br>
+        <h3>pre autora:</h3>
+        <p>
+            Ak by ste mi chceli zanechať nejaký odkaz, použite prosím formulár nižšie.
+        </p>
+        <p style="font-size: 2vh" >povinné polia sú vyznačené červenou</p>
+        <form id="review" method="get" target="form_response">
+            <label for="namer">Vaše meno:</label>
+            <input type="text" name="meno" id="namer" size="25" maxlength="50"
+                   placeholder="Vaše meno prosím" required
+                   lang="sk"
+                   pattern="^[a-zA-Z-' ]*$"
+                   title="Vaše meno poprosím zadať bez diakritiky">
+            <br><br>
+            <label for="email">Váš email:</label>
+            <input type="email" name="email" id="email" size="25"
+                   title="email musí zodpovedať formátu: xxxxxxx@xxxx.xx"
+                   maxlength="100" placeholder="Váš email prosím" required
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <br><br>
+            <label for="url">url:</label>
+            <input type="url" name="url" id="url" size="25"
+                   maxlength="500"
+                   pattern="https?://.+" >
+            <br><br><br>
+            <p>
+                Páči sa Vám moja stránka?
+            </p>
+            <label for="like">Páči sa mi</label>
+            <input type="radio" name="like" id="like" value="Stránka sa mi páči">
+            <br>
+            <label for="dislike">Nepáči sa mi</label>
+            <input type="radio" name="like" id="dislike" value="Stránka sa mi nepáči">
+            <br><br>
+            <label for="review_text"></label>
+            <textarea id="review_text" name="review_text" rows="5" cols="60"
+                      placeholder="Tu mi môžete zanechať spätnú väzbu" required></textarea>
+            <br><br>
+            <input type="checkbox" name="content1" id="contentik">
+            <label for="contentik">Chcel/-a by som viac na danú tému</label>
+            <br><br><br>
+            <label for="key_word">Aké kľúčové slovo vystihuje moju stránku?</label>
+            <input list="key_words" name="key_word" id="key_word" required>
+            <datalist id="key_words">
+                <option value="perfektná - dozvedel/-a som sa všetko, čo som chcel/-a"></option>
+                <option value="dobrá - našiel/-la som tu zaujímavé informácie"></option>
+                <option value="dá sa - sú tu pokope informácie ohľadom seriálu, ale nič svetoborné"></option>
+                <option value="schopná- no už sa sem nevrátim"></option>
+                <option value="celé zle - nebol/-a som spokojný/-á"></option>
+            </datalist>
+            <br><br>
+            <button type="submit" id="submit">Poslať</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="deleteOpinions()">Vymazať reakcie</button>
+            <br><br><br><br><br>
+        </form>
+    </article>
+</script>
+<script>
+    function deleteOpinions() {
+        var response = prompt("Zadajte prosím heslo.");
+        if (response === "terka") {
+            localStorage.clear();
+            window.alert("Záznamy boli odstránené");
+            window.location.hash = "#opinions";
+        }
+        else {
+            window.alert("Heslo nie je správne!");
+            window.location.hash = "#addOpinion";
+        }
+    }
+</script>
+
+<script id="template-article-form" type="text/template">
+    <article>
+        <form id="articleForm">
+            <br><br><br><br>
+            <h2>{{formTitle}}</h2>
+            <label for="author">Author:</label><br>
+            <input type="text" name="author" id="author" value="{{author}}" size="50"
+                   title="Article author, max. length 100 characters."
+                   maxlength="100" placeholder="e.g. Ján Trieska" />
+            <br><br>
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" id="title" value="{{title}}" size="50"
+                   maxlength="100" pattern="\S[\S\s]*" placeholder="e.g. My story." required
+                   title="Article title, mandatory item, max. length: 100 characters.
+The first character must not be a space."  />
+            <br><br>
+            <label for="imageLink">Image (url):</label><br>
+            <input type="url" name="imageLink" id="imageLink" value="{{imageLink}}" size="50"
+                   title="Image URL, max. length 100 characters." maxlength="100"/>
+
+            <br><br>
+            <label for="content">Article content:</label><br>
+            <textarea
+                    name="content" id="content" spellcheck="true" lang="sk"
+                    cols="50" rows="20" required
+                    title="Article content, mandatory item, can be plain text or in HTML.">
+              {{content}}
+            </textarea>
+            <br><br>
+            <label for="tags">Keywords:</label><br>
+            <input  type="text" name="tags" id="tags" value="{{tags}}" size="50"
+                    title="Keyword list, comma separated." placeholder="e.g. village, drama" readonly/>
+            <br> <br><br><br><br>
+            <button type="reset"> Reset Form </button>
+            <button type="submit"> {{submitByTitle}} </button>
+
+        </form>
+    </article>
+    <br><br><br>
+    <footer>
+        <a href="{{backLink}}" style="color: #FF7C30"><< Back</a>
+    </footer>
+
+</script>
+
+<script id="template-article-add" type="text/template">
+    <article>
+        <form id="articleFormAdd">
+            <br><br><br><br>
+            <h2 style="color: navajowhite">Pridajte Artikel</h2>
+            <label htmlFor="author">Autor:</label><br>
+            <input type="text" name="author" id="author1" size="50"
+                   title="Autor článku, max 100 znakov."
+                   maxlength="100" placeholder="napr. Jožko Mrkvička" />
+            <br> <br>
+            <label htmlFor="title">Titulok:</label><br>
+            <input type="text" name="title" id="title1" size="50"
+                   maxlength="100" pattern="\S[\S\s]*" placeholder="napr. Môj príbeh" required
+                   title="Názov článku, max 100 znakov. Prvý znak nesmie byť medzera."  />
+            <br> <br>
+            <label htmlFor="imageLink">Obrázok (url):</label><br>
+            <input type="url" name="imageLink" id="imageLink1" size="50"
+                   title="URL obrázku."/>
+
+            <br> <br>
+            <label htmlFor="content">Kontent:</label><br>
+            <textarea
+                    name="content" id="content1" spellcheck="true" lang="sk"
+                    cols="50" rows="20" required
+                    title="Kontent artiklu.">
+            </textarea>
+            <br> <br>
+            <label htmlFor="tags">Keywords:</label><br>
+            <input  type="text" name="tags" id="tags1" size="50"
+                    title="Kľúčové slová je možné rozdeliť čiarkov" placeholder="napr. draky, targaryen"/>
+            <br> <br> <br> <br>
+            <button type="reset"> Resetovať </button>
+            <button id="btn" type="submit">Potvrdiť </button>
+
+        </form>
+    </article>
+
+    <footer>
+        <a href="{{backLink}}" class="linkAsButton"><< Back</a>
+    </footer>
+
+</script>
+
+<script id="template-about" type="text/template">
+    <br><br><br><br>
+    <h3 style="color: coral">Trochu o mne</h3>
+    <br>
+    <!--    <img src="fig/terka.jpg" alt="terka"> -->
+    <p>Pochádzam z nádherného kraja - Zo srdca Liptova. Mojimi záľubami sú lukostreľba, výtvarné umenia, seriály, či
+        online hry. Tí čo ma nepoznajú by ma zaradili medzi introvertov, ale keby si naše vzťahy kúsok oťukali,
+        prišli by k záveru, že som stvorenie plné prekvapení a kuriozít. Mám rada zimu, ale neznášam chlad. Mám rada leto,
+        ale nemusím letné horúčavy. Milujem búrky, no nemám rada, keď zmoknem... Mohli by sm pokračovať veľmi dlho.
+        Najčastejšie ma však spoznáte podľa úsmevu, ktorý sa vynorí vždy, keď s niekým hovorím.
+        <br>
+        Ako veľký fanúšik Game of Thrones som si nemohla nechať ujsť príležitosť vypracovať stránku na tému nového prequel-u,
+        serálu Rod Draka, ktorý sa mi veľmi zaľúbil. Preto dúfam, že obsah mojej stránky Vás aspoň trochu namotivuje, aby ste si ho pozreli,
+        alebo mu pri najmenšom aspoň dali šancu. Či už áno alebo nie je na Vás, avšak bola by som rada za každú jednu pripomienku, ak
+        sa nejaká vyskytne :) Pretože spätná väzba vie veľmi pomôcť :)
+    </p>
+</script>
+
+<script id="template-article" type="text/template">
+    <article>
+        <div class="clanocek">
+            {{#response}}
+            <br><br><br><br>
+            <h3>{{title}}</h3><p>autor: {{author}}</p>
+            <div id = "obrazokasdf" >
+                <img src="{{imageLink}}" alt="article_figure" class="image"/>
+            </div>
+            {{/response}}
+            {{#response}}
+            <p>{{{content}}}</p>
+            <p style="display: none"> Keywords: {{tags}} </p>
+            {{/response}}
+            <hr>
+            <h3 class="koment">Komenty</h3>
+            <br>
+
+
+
+            <nav>
+                {{#prevPage}}
+                <a href="#article/{{id}}/{{offset}}/{{totalCount}}/{{prevPage}}/{{commentsCount}}"><< Previous page _ </a>
+                {{/prevPage}}
+                {{#nextPage}}{{#commentsCount}}
+                <a href="#article/{{id}}/{{offset}}/{{totalCount}}/{{nextPage}}/{{commentsCount}}"> Next page >></a>
+                {{/commentsCount}}{{/nextPage}}
+            </nav>
+
+            {{#comments}}
+            <div class="comment">
+            <u>{{author}}</u>
+            <br>
+            <i>{{{text}}}</i>
+            </div>
+            {{/comments}}
+            <br>
+
+
+
+
+            <button type="submit" onclick="myFunction()">PRIDAJ KOMENTÁR</button>
+
+            <div id="addCommentDiv">
+                <br>
+                <form id="addCommentForm">
+                    <div class="addArticleHeader">
+                        <h2>Pridaj koment</h2>
+                    </div>
+                    <div class="artAuthor">
+                        <label for="author">Meno:</label>
+                        <br>
+                        <input type="text" name="author" id="commentAuthor" size="50" required
+                               title="Autor komentára, maximálna dĺžka: 100 znakov."
+                               maxlength="100" placeholder="meno">
+                    </div>
+
+                    <div class="artTextArea">
+                        <label for="content">Komentár:</label>
+                        <br>
+                        <textarea name="content" id="commentContent" spellcheck="true"
+                                  lang="sk" cols="50" rows="5" required
+                                  title="Obsah komentára."></textarea>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="reset" id="cancelComment" style="color: #FF7C30">Cancel</button>
+                        {{#response}}
+                        <button type="submit" id="sendComment" class="linkAsButton" style="color: #FF7C30"><a href="{{addCommLink}}">odoslať</a></button>
+                        {{/response}}
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </article>
+    <p class="botttom">
+        {{#response}}
+        <a href="{{backLink}}" class="linkAsButton"><< späť .....</a>
+        <a href="{{editLink}}" class="linkAsButton">edit .....</a>
+        <a href="{{deleteLink}}" class="linkAsButton">zmazať</a>
+        {{/response}}
+    </p>
+</script>
+
+<script>
+    function myFunction() {
+        let x = document.getElementById("addCommentDiv");
+        x.style.display === "none" ? x.style.display = "block" : x.style.display = "none";
+            if(auth2.isSignedIn.get()){
+                document.getElementById("commentAuthor").value = auth2.currentUser.get().getBasicProfile().getName();
+            }
+    }
+</script>
+<script>
+    function myFunction2() {
+        var x = document.getElementById("hamburger");
+        var y = document.getElementById("googleSignIn");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+            y.style.display = "block";
+        } else {
+            x.style.display = "block";
+            y.style.display = "none";
+        }
+    }
+    function myFunction3() {
+        var x = document.getElementById("hamburger");
+        x.style.display = "none";
+    }
+</script>
+
+</body>
+</html>
